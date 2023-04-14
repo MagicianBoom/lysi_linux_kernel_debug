@@ -7,8 +7,8 @@
 #include <linux/io.h>
 #include <linux/slab.h>
 
-#define LYSI_TYPE               '?'
-#define LYSI_MAGIC              100
+#define LYSI_TYPE               '!'
+#define LYSI_MAGIC              117
 #define LYSI_IOCTL_CMD0         (_IO(LYSI_TYPE, LYSI_MAGIC+0))
 #define LYSI_IOCTL_CMD1         (_IO(LYSI_TYPE, LYSI_MAGIC+1))
 #define LYSI_IOCTL_CMD2         (_IO(LYSI_TYPE, LYSI_MAGIC+2))
@@ -18,8 +18,12 @@
 #define LYSI_IOCTL_CMD6         (_IO(LYSI_TYPE, LYSI_MAGIC+6))
 #define LYSI_IOCTL_CMD7         (_IO(LYSI_TYPE, LYSI_MAGIC+7))
 
+#define LYSI_OK                 0
+#define LYSI_ERROR              -1
+
 struct lysi_debugfs{
     struct dentry *root_dir;
+    struct dentry *xxxx_dir;
 };
 
 struct register_info{

@@ -8,10 +8,12 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
-#include "linux/ioctl.h"
+#include <linux/ioctl.h>
 
-#define LYSI_TYPE               '?'
-#define LYSI_MAGIC              100
+#define LYSI_DEBUGFS_IOCTL_DEV_NAME                 "/sys/kernel/debug/lysi_debugfs/lysi_debugfs_ioctl"
+
+#define LYSI_TYPE               '!'
+#define LYSI_MAGIC              117
 #define LYSI_IOCTL_CMD0         (_IO(LYSI_TYPE, LYSI_MAGIC+0))
 #define LYSI_IOCTL_CMD1         (_IO(LYSI_TYPE, LYSI_MAGIC+1))
 #define LYSI_IOCTL_CMD2         (_IO(LYSI_TYPE, LYSI_MAGIC+2))
@@ -20,5 +22,13 @@
 #define LYSI_IOCTL_CMD5         (_IO(LYSI_TYPE, LYSI_MAGIC+5))
 #define LYSI_IOCTL_CMD6         (_IO(LYSI_TYPE, LYSI_MAGIC+6))
 #define LYSI_IOCTL_CMD7         (_IO(LYSI_TYPE, LYSI_MAGIC+7))
+
+#define LYSI_OK                 0
+#define LYSI_ERROR              -1
+
+struct xxxx_struct{
+    unsigned int test_data1;
+    unsigned int test_data2;
+};
 
 #endif

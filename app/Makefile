@@ -9,9 +9,9 @@ endif
 #目标文件
 TARGET=lysi_app
 #生成中间文件夹
-BUILD_DIR=/home/magician/workspace/lysi/app/build
+BUILD_DIR=/home/magician/workspace/lysi_linux_kernel_debugfs/app/build
 #源文件文件夹列表
-SRC_DIR=/home/magician/workspace/lysi/app
+SRC_DIR=/home/magician/workspace/lysi_linux_kernel_debugfs/app
 
 #所有源文件的路径名列表
 SOURCES=$(foreach dir, $(SRC_DIR), $(wildcard $(dir)/*.c))

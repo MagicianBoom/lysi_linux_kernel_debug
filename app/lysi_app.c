@@ -1,83 +1,70 @@
 #include "lysi_app.h"
 
-static int cmd[] = {3, 3, 3, 3, 3, 3, 3, 3};
-
-int verify_argc(int index, int argc)
+struct xxxx_struct* parse_xxx_struct(int argc, char *argv[])
 {
-    if (argc != cmd[index]){
-        printf("Error Usage!\r\n");
-        return -1;
+    int arg_no = 3;
+    char *stop_at = NULL;
+    struct xxxx_struct* xxxx = malloc(sizeof(struct xxxx_struct));
+    if (!xxxx) {
+        return NULL;
     }
 
-    return 0;
+    xxxx->test_data1 = strtoul(argv[arg_no++], &stop_at, 0);
+    xxxx->test_data2 = strtoul(argv[arg_no++], &stop_at, 0);
+
+    return xxxx;
 }
 
-int ioctl_cmd0(int argc, char *argv[])
+void printf_usage(void)
 {
-    int ret = 0;
-    if (argc != 3) {
-        printf("Error Usage!\r\n");
-        return -1;
+    printf("usage\r\n");
+    return;
+}
+
+int lysi_debugfs_xxxx(int argc, char *argv[])
+{
+    int ret = LYSI_OK;
+    int fd = 0;
+    struct xxxx_struct *xxxx;
+
+    if (argc != 2) {
+        printf("Invalid argument count %d\r\n", argc);
+        printf_usage();
+        return LYSI_ERROR;
     }
 
+    xxxx = parse_xxx_struct(argc, argv);
 
+    fd = open(LYSI_DEBUGFS_IOCTL_DEV_NAME, O_RDWR, 0);
+    if (fd < 0) {
+        printf("open failed\r\n");
+        return LYSI_ERROR;
+    }
 
+    ret = ioctl(fd, LYSI_IOCTL_CMD0, xxxx);
+    if (ret) {
+        printf("lysi_debugfs_xxxx failed, ret:%d\r\n", ret);
+    }
+
+    close(fd);
+
+    return ret;
 }
 
-// argv[0]: app_name
-// argv[1]: dev_file_path
-// argv[2]: cmd_code
-// argv[3]...: args
 int main(int argc, char *argv[])
 {
     int fd, ret;
     char *dev_file_path;
     int cmd;
 
-    if (argc < 3) {
-        printf("usage: lysi_app dev_file_path cmd_code [args...]\r\n");
-        return -1;
+    if (argc < 2) {
+        printf_usage();
+        return LYSI_ERROR;
     }
 
-    verify_argc(atoi(argv[2]), argc);
-
-    dev_file_path = argv[1];
-    cmd = atoi(argv[2]);
-
-    /* 打开驱动文件 */
-    fd = open(dev_file_path, O_RDWR);
-    if(fd < 0){
-        printf("Can't open file %s\r\n", dev_file_path);
-        return -1;
+    if (memcmp(argv[1], "lysi_debugfs_xxxx", strlen(argv[1])) == 0) {
+        ret = lysi_debugfs_xxxx(argc, argv);
     }
 
-    switch(cmd) {
-    case 0:
-        return ioctl(fd, LYSI_IOCTL_CMD0, 0);
-    case 1:
-        return ioctl(fd, LYSI_IOCTL_CMD1, 0);
-    case 2:
-        return ioctl(fd, LYSI_IOCTL_CMD2, 0);
-    case 3:
-        return ioctl(fd, LYSI_IOCTL_CMD3, 0);
-    case 4:
-        return ioctl(fd, LYSI_IOCTL_CMD4, 0);
-    case 5:
-        return ioctl(fd, LYSI_IOCTL_CMD5, 0);
-    case 6:
-        return ioctl(fd, LYSI_IOCTL_CMD6, 0);
-    case 7:
-        return ioctl(fd, LYSI_IOCTL_CMD7, 0);
-    default:
-        printf("cmd error\r\n");
-        return -1;
-    }
-
-    /* 关闭设备 */
-    ret = close(fd);
-    if(ret < 0){
-        printf("Can't close file %s\r\n", dev_file_path);
-        return -1;
-    }
-    return 0;
+    return ret;
 }
