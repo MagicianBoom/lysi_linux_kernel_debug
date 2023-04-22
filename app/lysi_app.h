@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <linux/ioctl.h>
+#include "../common/lysi_common.h"
 
 #define LYSI_DEBUGFS_IOCTL_DEV_NAME                 "/sys/kernel/debug/lysi_debugfs/lysi_debugfs_ioctl"
 
@@ -22,9 +23,6 @@
 #define LYSI_IOCTL_CMD5         (_IO(LYSI_TYPE, LYSI_MAGIC+5))
 #define LYSI_IOCTL_CMD6         (_IO(LYSI_TYPE, LYSI_MAGIC+6))
 #define LYSI_IOCTL_CMD7         (_IO(LYSI_TYPE, LYSI_MAGIC+7))
-
-#define LYSI_OK                 0
-#define LYSI_ERROR              -1
 
 struct xxxx_struct{
     unsigned int data1;

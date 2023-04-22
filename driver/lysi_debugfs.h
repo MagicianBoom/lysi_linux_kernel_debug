@@ -6,6 +6,7 @@
 #include <linux/fs.h>
 #include <linux/io.h>
 #include <linux/slab.h>
+#include "../common/lysi_common.h"
 
 #define LYSI_TYPE               '!'
 #define LYSI_MAGIC              117
@@ -17,9 +18,6 @@
 #define LYSI_IOCTL_CMD5         (_IO(LYSI_TYPE, LYSI_MAGIC+5))
 #define LYSI_IOCTL_CMD6         (_IO(LYSI_TYPE, LYSI_MAGIC+6))
 #define LYSI_IOCTL_CMD7         (_IO(LYSI_TYPE, LYSI_MAGIC+7))
-
-#define LYSI_OK                 0
-#define LYSI_ERROR              -1
 
 struct lysi_debugfs{
     struct dentry *root_dir;

@@ -6,9 +6,7 @@ struct xxxx_struct* parse_xxx_struct(int argc, char *argv[])
     int arg_no = 2;
     char *stop_at = NULL;
     struct xxxx_struct* xxxx = malloc(sizeof(struct xxxx_struct));
-    if (!xxxx) {
-        return NULL;
-    }
+    lysi_assert(xxxx != NULL);
 
     xxxx->data1 = strtoul(argv[arg_no++], &stop_at, 0);
     xxxx->data2 = strtoul(argv[arg_no++], &stop_at, 0);
