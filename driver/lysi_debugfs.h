@@ -33,4 +33,9 @@ struct register_info{
     unsigned char reg_width;
 };
 
+struct xxxx_struct{
+    unsigned int data1;
+    unsigned int data2;
+};
+
 #endif

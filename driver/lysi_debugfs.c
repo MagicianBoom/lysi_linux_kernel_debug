@@ -49,6 +49,21 @@ static int register_reg(struct register_info reg_info[], struct dentry *dir, int
     return ret;
 }
 
+int ioctl_xxxx(struct lysi_debugfs *lysi_debugfs_dev, unsigned long arg)
+{
+    struct xxxx_struct xxxx;
+    int ret = LYSI_OK;
+
+    if(copy_from_user(&xxxx, (void __user *)arg, sizeof(struct xxxx_struct))) {
+        return -EFAULT;
+    }
+
+    printk("LY_DEBUG===> %s: xxx.data1: 0x%X\r\n", __func__, xxxx.data1);
+    printk("LY_DEBUG===> %s: xxx.data2: 0x%X\r\n", __func__, xxxx.data2);
+
+    return ret;
+}
+
 static int lysi_debugfs_open(struct inode *inode, struct file *file)
 {
     if (inode->i_private) {
@@ -60,12 +75,13 @@ static int lysi_debugfs_open(struct inode *inode, struct file *file)
 
 static long lysi_debugfs_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
-    int ret;
+    int ret = LYSI_OK;
 
     switch(cmd) {
     case LYSI_IOCTL_CMD0:
         printk("LY_DEBUG===> %s: ioctl cmd0\r\n", __func__);
-        return LYSI_OK;
+        ret = ioctl_xxxx(&lysi_debugfs_dev, arg);
+        return ret;
     case LYSI_IOCTL_CMD1:
         printk("LY_DEBUG===> %s: ioctl cmd1\r\n", __func__);
         return LYSI_OK;

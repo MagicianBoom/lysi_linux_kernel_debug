@@ -21,11 +21,11 @@ clear & clear
 
 # 编译lysi驱动
 cd $LYSI_DIR/driver
-make
+make || exit
 
 # 编译APP
 cd $LYSI_DIR/app
-make ARCH=arm64
+make ARCH=arm64 || exit
 
 # 搬运生成的需要用的文件
 rm $SCP_SOURCE_DIR/*
@@ -37,3 +37,5 @@ cp $LYSI_DIR/run.sh $SCP_SOURCE_DIR
 sshpass -p ${PASSWORD} scp ${SCP_SOURCE_DIR}/* ${SCP_TARGET_DIR}
 
 clean_all
+
+echo "========== all success =========="

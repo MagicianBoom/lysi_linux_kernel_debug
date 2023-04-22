@@ -1,24 +1,19 @@
 #include "lysi_app.h"
 
+//===== demo for use START =====
 struct xxxx_struct* parse_xxx_struct(int argc, char *argv[])
 {
-    int arg_no = 3;
+    int arg_no = 2;
     char *stop_at = NULL;
     struct xxxx_struct* xxxx = malloc(sizeof(struct xxxx_struct));
     if (!xxxx) {
         return NULL;
     }
 
-    xxxx->test_data1 = strtoul(argv[arg_no++], &stop_at, 0);
-    xxxx->test_data2 = strtoul(argv[arg_no++], &stop_at, 0);
+    xxxx->data1 = strtoul(argv[arg_no++], &stop_at, 0);
+    xxxx->data2 = strtoul(argv[arg_no++], &stop_at, 0);
 
     return xxxx;
-}
-
-void printf_usage(void)
-{
-    printf("usage\r\n");
-    return;
 }
 
 int lysi_debugfs_xxxx(int argc, char *argv[])
@@ -26,8 +21,9 @@ int lysi_debugfs_xxxx(int argc, char *argv[])
     int ret = LYSI_OK;
     int fd = 0;
     struct xxxx_struct *xxxx;
+    int struct_member_nums = 2;
 
-    if (argc != 2) {
+    if (argc != 2+struct_member_nums) {
         printf("Invalid argument count %d\r\n", argc);
         printf_usage();
         return LYSI_ERROR;
@@ -47,8 +43,15 @@ int lysi_debugfs_xxxx(int argc, char *argv[])
     }
 
     close(fd);
-
+    free(xxxx);
     return ret;
+}
+//===== demo for use END =====
+
+void printf_usage(void)
+{
+    printf("usage\r\n");
+    return;
 }
 
 int main(int argc, char *argv[])
@@ -64,6 +67,9 @@ int main(int argc, char *argv[])
 
     if (memcmp(argv[1], "lysi_debugfs_xxxx", strlen(argv[1])) == 0) {
         ret = lysi_debugfs_xxxx(argc, argv);
+    } else {
+        printf_usage();
+        return LYSI_ERROR;
     }
 
     return ret;

@@ -27,8 +27,8 @@
 #define LYSI_ERROR              -1
 
 struct xxxx_struct{
-    unsigned int test_data1;
-    unsigned int test_data2;
+    unsigned int data1;
+    unsigned int data2;
 };
 
 #endif
