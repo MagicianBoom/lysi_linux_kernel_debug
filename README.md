@@ -8,3 +8,6 @@ lysi_linux_kernel_debugfs是Linux内核设备驱动开发调试、Linux内核开
 - build.sh：编译脚本，必要时依据平台、工程特性自行更改
 - README.md：说明手册
 - run.sh：linux下的命令执行脚本，请按需自行更改
+## ./build.sh命令自动补全功能
+- 执行 source shell_complete 命令后即可使用
+- 如果要增加命令，build.sh和shell_complete要同时增加命令

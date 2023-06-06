@@ -1,0 +1,14 @@
+# 定义需要自动补全的参数
+options=("help" "clean_all" "build_all")
+
+# 自动补全函数
+_auto_complete() {
+# 获取用户输入的内容
+local cur="${COMP_WORDS[COMP_CWORD]}"
+
+# 根据用户输入的内容，生成匹配的选项
+COMPREPLY=( $(compgen -W "${options[*]}" -- "$cur") )
+}
+
+# 注册自动补全函数到脚本中
+complete -F _auto_complete ./build.sh
