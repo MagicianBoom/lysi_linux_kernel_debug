@@ -1,5 +1,5 @@
 # 定义需要自动补全的参数
-options=("help" "clean_all" "build_all")
+options=("help" "clean_all" "app" "debugfs" "kprobe" "all")
 
 # 自动补全函数
 _auto_complete() {

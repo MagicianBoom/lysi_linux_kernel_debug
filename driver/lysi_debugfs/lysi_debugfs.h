@@ -6,7 +6,7 @@
 #include <linux/fs.h>
 #include <linux/io.h>
 #include <linux/slab.h>
-#include "../common/lysi_common.h"
+#include "../../common/lysi_common.h"
 
 #define LYSI_TYPE               '!'
 #define LYSI_MAGIC              117
